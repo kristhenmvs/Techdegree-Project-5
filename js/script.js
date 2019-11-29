@@ -2,7 +2,7 @@
 const url = 'https://randomuser.me/api/?format=json&results=12';
 const gallery = document.querySelector('#gallery');
 const body = document.querySelector('body');
-const users = [];
+let users = [];
 
 // Fetch request.
 fetch(url)
@@ -56,7 +56,7 @@ function createModalWindow(data){
         const birthMonth = user.dob.date.substring(5, 7);
         const birthYear = user.dob.date.substring(0, 4);
         const modalHtml = `
-            <div class="modal">
+            <div class="modal" style="display:none">
                 <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                 <div class="modal-info-container">
                     <img class="modal-img" src="${user.picture.large}" alt="profile picture">
@@ -71,38 +71,35 @@ function createModalWindow(data){
             </div>    
             
         `;
-        users.push(modalHtml);
+        
         modalDiv.innerHTML += modalHtml;
         
 
     });
     gallery.after(modalDiv);
     
-    eventHandler(users);
-    
 }
 
-function eventHandler (users) {
+function eventHandler () {
     const gallery = document.querySelector('#gallery');
     const cards = Array.from(document.querySelectorAll('.card'));
+    const modalCards = Array.from(document.querySelectorAll('.modal'));
     const modalDiv = document.querySelector('.modal-container');
     
-    console.log(users[3]);
 
     gallery.addEventListener('click', (e) => {
         
         if (e.target.className === 'card'){
            
             let i = cards.indexOf(e.target);
-            users[i].style.display = '';
+            modalCards[i].style.display = '';
             modalDiv.style.display = '';
-            // console.log(modalCard[i])
-            // console.log(cards.indexOf(e.target));
 
 
-            const btn = document.getElementById('modal-close-btn');
-            btn.addEventListener('click', () => {
+            const btn = document.querySelectorAll('#modal-close-btn');
+            btn[i].addEventListener('click', () => {
             modalDiv.style.display = 'none'
+            modalCards[i].style.display = 'none'
             })
         }
 
