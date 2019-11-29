@@ -4,7 +4,7 @@ const gallery = document.querySelector('#gallery');
 const body = document.querySelector('body');
 let users = [];
 
-// Fetch request.
+// Fetch request with the function calling and error message.
 fetch(url)
 .then(checkStatus)
 .then(res => res.json())
@@ -21,6 +21,7 @@ function checkStatus(response) {
     }
 }
 
+// To create the gallery of employees as the page loads.
 function createGallery(data){
     const gallery = document.querySelector('#gallery')
     let randomUsers = data.results;
@@ -28,13 +29,14 @@ function createGallery(data){
     randomUsers.forEach(user => {
         const galleryHtml = `
             <div class="card">
-            <div class="card-img-container">
-                <img class="card-img" src="${user.picture.large}" alt="profile picture">
-            </div>
-            <div class="card-info-container">
-                <h3 id="name" class="card-name cap">${user.name.first} ${user.name.last}</h3>
-                <p class="card-text">${user.email}</p>
-                <p class="card-text cap">${user.location.city}, ${user.location.state}</p>
+                <div class="card-img-container">
+                    <img class="card-img" src="${user.picture.large}" alt="profile picture">
+                </div>
+                <div class="card-info-container">
+                    <h3 id="name" class="card-name cap">${user.name.first} ${user.name.last}</h3>
+                    <p class="card-text">${user.email}</p>
+                    <p class="card-text cap">${user.location.city}, ${user.location.state}</p>
+                </div>
             </div>
         `;
 
@@ -43,6 +45,7 @@ function createGallery(data){
     
 }
 
+// To create the modal windows of every employee and append them to the document.
 function createModalWindow(data){
     
     let randomUser = data.results;
@@ -65,7 +68,7 @@ function createModalWindow(data){
                     <p class="modal-text cap">${user.location.city}</p>
                     <hr>
                     <p class="modal-text">${user.cell}</p>
-                    <p class="modal-text">${user.location.street}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
+                    <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
                     <p class="modal-text">Birthday: ${birthMonth}/${birthDay}/${birthYear}</p>
                 </div>
             </div>    
@@ -80,6 +83,7 @@ function createModalWindow(data){
     
 }
 
+// To take care of the event handlers.
 function eventHandler () {
     const gallery = document.querySelector('#gallery');
     const cards = Array.from(document.querySelectorAll('.card'));
@@ -102,7 +106,5 @@ function eventHandler () {
             modalCards[i].style.display = 'none'
             })
         }
-
     })
-
 }
