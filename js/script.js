@@ -105,6 +105,18 @@ function eventHandler () {
             modalDiv.style.display = 'none'
             modalCards[i].style.display = 'none'
             })
+        } else if (e.target.className === 'card-name cap' || e.target.className === 'card-img' || e.target.className === 'card-text' || e.target.className === 'card-text cap'){
+
+            let i = cards.indexOf(e.target.parentNode.parentNode);
+            modalCards[i].style.display = '';
+            modalDiv.style.display = '';
+
+
+            const btn = document.querySelectorAll('#modal-close-btn');
+            btn[i].addEventListener('click', () => {
+            modalDiv.style.display = 'none'
+            modalCards[i].style.display = 'none'
+            })
         }
     })
 }
